@@ -24,7 +24,7 @@ public class Property {
     private int bathrooms;
     private boolean parkingAvailable;
 
-    // --- NEW MAP COORDINATE FIELDS ---
+
     private Double latitude;
     private Double longitude;
 
@@ -35,7 +35,6 @@ public class Property {
     public Property() {
     }
 
-    // --- Getters and Setters ---
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -63,7 +62,6 @@ public class Property {
     public boolean isParkingAvailable() { return parkingAvailable; }
     public void setParkingAvailable(boolean parkingAvailable) { this.parkingAvailable = parkingAvailable; }
 
-    // --- GETTERS AND SETTERS FOR COORDINATES ---
     public Double getLatitude() { return latitude; }
     public void setLatitude(Double latitude) { this.latitude = latitude; }
 
@@ -72,4 +70,5 @@ public class Property {
 
     public User getOwner() { return owner; }
     public void setOwner(User owner) { this.owner = owner; }
+
 }
