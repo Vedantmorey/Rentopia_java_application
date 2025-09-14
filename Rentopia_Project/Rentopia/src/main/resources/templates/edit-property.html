@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header-links(pageTitle='Edit Property')}"></head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container my-5">
+    <div class="card p-4 p-lg-5 form-card-animation">
+        <h2 class="card-title text-center mb-4">Edit Property</h2>
+        <div class="row g-5">
+            <div class="col-lg-6">
+                <form th:action="@{/property/edit/{id}(id=${property.id})}" th:object="${property}" method="post" enctype="multipart/form-data">
+
+                    <div class="input-group mb-3" data-aos="fade-up">
+                        <span class="input-group-text"><i class="bi bi-fonts"></i></span>
+                        <input type="text" class="form-control form-control-with-icon" id="title" th:field="*{title}" required>
+                    </div>
+
+                    <div class="input-group mb-3" data-aos="fade-up" data-aos-delay="100">
+                        <span class="input-group-text"><i class="bi bi-geo-alt-fill"></i></span>
+                        <input type="text" class="form-control form-control-with-icon" id="location" th:field="*{location}" required>
+                    </div>
+
+                    <div class="input-group mb-3" data-aos="fade-up" data-aos-delay="200">
+                        <span class="input-group-text"><i class="bi bi-currency-rupee"></i></span>
+                        <input type="number" class="form-control form-control-with-icon" id="price" th:field="*{price}" required>
+                    </div>
+
+                    <div class="mb-3" data-aos="fade-up" data-aos-delay="300">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" id="description" th:field="*{description}" rows="4" required></textarea>
+                    </div>
+
+                    <div class="mb-4" data-aos="fade-up" data-aos-delay="400">
+                        <label for="imageFile" class="form-label">Upload New Image (Optional)</label>
+                        <input type="file" class="form-control" id="imageFile" name="imageFile" accept="image/*" onchange="previewImage(event)">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100" data-aos="fade-up" data-aos-delay="500">Save Changes</button>
+                </form>
+            </div>
+
+            <div class="col-lg-6 d-flex align-items-center justify-content-center bg-light rounded p-3" data-aos="fade-left" data-aos-delay="200">
+                <img id="imagePreview" th:src="@{${property.imageUrl}}" alt="Current Property Image" class="img-fluid rounded shadow-sm" style="max-height: 400px;">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

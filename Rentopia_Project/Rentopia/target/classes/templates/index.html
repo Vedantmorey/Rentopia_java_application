@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/header :: header-links(pageTitle='Rentopia - Find Your Perfect Space')}"></head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<section class="hero-section">
+    <div class="container">
+        <h1 data-aos="fade-down">Find Your Perfect Space</h1>
+        <p class="lead" data-aos="fade-down" data-aos-delay="100">The best rental properties, right at your fingertips.</p>
+
+        <div class="search-form mt-4" data-aos="fade-up" data-aos-delay="200">
+            <form th:action="@{/}" method="get" class="row g-3 align-items-center justify-content-center">
+                <div class="col-md-3">
+                    <input type="text" class="form-control" name="keyword" th:value="${keyword}" placeholder="Title (e.g., Apartment)">
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" name="location" th:value="${location}" placeholder="Location">
+                </div>
+                <div class="col-md-3">
+                    <input type="number" class="form-control" name="maxPrice" th:value="${maxPrice}" placeholder="Max Price">
+                </div>
+                <div class="col-md-2 d-grid">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<div class="container my-5">
+    <h2 class="text-center mb-4">
+        Featured Listings
+        <span th:if="${location != null AND !location.isEmpty()}" th:text="'in ' + ${location}"></span>
+    </h2>
+
+    <div th:if="${#lists.isEmpty(properties)}" class="text-center text-muted">
+        <h3>No matching properties found.</h3>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <div class="col" th:each="property, iterStat : ${properties}" data-aos="fade-up" th:attr="data-aos-delay=${iterStat.count * 100}">
+            <div class="card property-card h-100">
+                <img th:if="${property.imageUrl}" th:src="@{${property.imageUrl}}" class="card-img-top" th:alt="${property.title}" />
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title" th:text="${property.title}">Property Title</h5>
+                    <p class="card-text text-muted"><i class="bi bi-geo-alt-fill me-1"></i><span th:text="${property.location}">Property Location</span></p>
+
+                    <p class="card-text price" th:if="${property.price != null}">
+                        ₹<span th:text="${#numbers.formatDecimal(property.price, 0, 'COMMA', 0, 'POINT')}">Price</span> / month
+                    </p>
+
+                    <div class="mt-auto pt-3 d-flex justify-content-between align-items-center">
+                        <a th:href="@{/property/{id}(id=${property.id})}" class="btn btn-primary">View Details</a>
+
+                        <div th:if="${#authentication != null and #authentication.name == property.owner.email}" class="d-flex gap-2">
+                            <a th:href="@{/property/edit/{id}(id=${property.id})}" class="btn btn-secondary btn-sm">Edit</a>
+                            <form th:action="@{/property/delete/{id}(id=${property.id})}" method="post" class="d-inline">
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script th:src="@{/js/main.js}"></script>
+
+</body>
+</html>

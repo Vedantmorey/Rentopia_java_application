@@ -1,0 +1,16 @@
+com\Rentopia\Rentopia\config\SecurityConfig.class
+com\Rentopia\Rentopia\Controller\PaymentController.class
+com\Rentopia\Rentopia\Entity\Property.class
+com\Rentopia\Rentopia\ServiceLayer\PropertyService.class
+com\Rentopia\Rentopia\config\MvcConfig.class
+com\Rentopia\Rentopia\config\WebSocketConfig.class
+com\Rentopia\Rentopia\Entity\User.class
+com\Rentopia\Rentopia\RentopiaApplication.class
+com\Rentopia\Rentopia\Repository\PropertyRepository.class
+com\Rentopia\Rentopia\ServiceLayer\InstamojoService.class
+com\Rentopia\Rentopia\Controller\AuthController.class
+com\Rentopia\Rentopia\ServiceLayer\UserService.class
+com\Rentopia\Rentopia\Controller\ChatController.class
+com\Rentopia\Rentopia\Entity\ChatMessage.class
+com\Rentopia\Rentopia\Repository\UserRepository.class
+com\Rentopia\Rentopia\Controller\PropertyController.class

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header-links(pageTitle='Processing Payment...')}">
+    <meta http-equiv="refresh" content="3;url=/simulate-payment">
+</head>
+<body class="d-flex align-items-center justify-content-center vh-100">
+
+<div class="card p-4 text-center form-card-animation" style="width: 100%; max-width: 450px;">
+    <div class="card-body">
+        <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <h2 class="card-title mt-3">Processing Your Payment</h2>
+        <p class="text-muted">Please wait, you are being securely redirected...</p>
+        <hr>
+        <div class="text-start">
+            <p class="mb-1"><strong>Property:</strong> <span th:text="${property.title}"></span></p>
+            <p><strong>Amount:</strong> ₹<span th:text="${#numbers.formatDecimal(property.price, 0, 'COMMA', 2, 'POINT')}"></span></p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

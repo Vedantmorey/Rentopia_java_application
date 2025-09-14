@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header-links(pageTitle='Register - Rentopia')}"></head>
+<body class="auth-page d-flex align-items-center justify-content-center vh-100">
+
+<div class="card p-3 form-card-animation" style="width: 100%; max-width: 420px;">
+    <div class="card-body">
+
+        <div class="text-center mb-4" data-aos="fade-up">
+            <h1 class="logo-text">Rentopia</h1>
+        </div>
+
+        <h2 class="card-title text-center mb-4" data-aos="fade-up" data-aos-delay="100">Create Your Account</h2>
+
+        <form th:action="@{/register}" th:object="${user}" method="post" class="mt-4">
+            <div class="input-group mb-3" data-aos="fade-up" data-aos-delay="200">
+                <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
+                <input type="email" class="form-control form-control-with-icon" id="email" th:field="*{email}" placeholder="Email" required>
+            </div>
+
+            <div class="input-group mb-3" data-aos="fade-up" data-aos-delay="300">
+                <span class="input-group-text"><i class="bi bi-telephone-fill"></i></span>
+                <input type="tel" class="form-control form-control-with-icon" id="phone_number" th:field="*{phone_number}" placeholder="Phone Number" required>
+            </div>
+
+            <div class="input-group mb-3" data-aos="fade-up" data-aos-delay="400">
+                <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+                <input type="password" class="form-control form-control-with-icon" id="password" th:field="*{password}" placeholder="Password" required>
+            </div>
+
+            <div class="mb-4" data-aos="fade-up" data-aos-delay="500">
+                <label class="form-label d-block">Register as:</label>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" th:field="*{role}" id="roleOwner" value="OWNER" checked>
+                    <label class="form-check-label" for="roleOwner">Owner</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" th:field="*{role}" id="roleRenter" value="RENTER">
+                    <label class="form-check-label" for="roleRenter">Renter</label>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100" data-aos="fade-up" data-aos-delay="600">Create Account</button>
+        </form>
+
+        <p class="text-center mt-3" data-aos="fade-up" data-aos-delay="700">
+            <a th:href="@{/login}">Already have an account? Login here.</a>
+        </p>
+    </div>
+</div>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script th:src="@{/js/main.js}"></script>
+
+</body>
+</html>

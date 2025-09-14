@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/header :: header-links(pageTitle=${property.title})}"></head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<span id="username" th:if="${#authentication}" th:text="${#authentication.name}" style="display: none;"></span>
+<span id="propertyId" th:text="${property.id}" style="display: none;"></span>
+
+<div class="container my-5">
+    <div class="card p-4 p-lg-5" th:object="${property}">
+        <div class="row g-5">
+            <div class="col-lg-7" data-aos="fade-right">
+                <img th:if="*{imageUrl}" th:src="@{*{imageUrl}}" class="img-fluid rounded shadow-lg w-100" alt="Property Image">
+            </div>
+            <div class="col-lg-5 d-flex flex-column" data-aos="fade-left" data-aos-delay="200">
+                <div class="mb-3">
+                    <a th:href="@{/}" class="text-decoration-none"><i class="bi bi-arrow-left"></i> Back to All Properties</a>
+                </div>
+                <h1 class="card-title" th:text="*{title}">Property Title</h1>
+                <h3 class="text-muted fw-normal mb-3" th:text="*{location}">Property Location</h3>
+                <ul class="list-group list-group-flush mb-4" data-aos="fade-left" data-aos-delay="300">
+                    <li class="list-group-item d-flex align-items-center px-0" th:if="*{price != null}">
+                        <i class="bi bi-currency-rupee fs-4 me-3"></i>
+                        <div>
+                            <strong>Price</strong><br>
+                            ₹<span th:text="${#numbers.formatDecimal(property.price, 0, 'COMMA', 2, 'POINT')}">Price</span> / month
+                        </div>
+                    </li>
+                </ul>
+                <h4 class="mt-2">Description</h4>
+                <p th:text="*{description}" data-aos="fade-left" data-aos-delay="400">Full property description goes here.</p>
+
+                <h4 class="mt-4">Location on Map</h4>
+                <div id="map"
+                     th:if="*{latitude != null and longitude != null}"
+                     th:data-lat="*{latitude}"
+                     th:data-lon="*{longitude}"
+                     data-aos="fade-left" data-aos-delay="450">
+                </div>
+                <div class="card bg-light mt-4" data-aos="fade-left" data-aos-delay="500">
+                    <div class="card-body">
+                        <h5 class="card-title">Owner Information</h5>
+                        <p class="card-text mb-0">
+                            <i class="bi bi-telephone-fill"></i>
+                            <strong>Contact:</strong> <span th:text="*{owner.phone_number}">Owner Phone</span>
+                        </p>
+                        <p class="card-text">
+                            <i class="bi bi-envelope-fill"></i>
+                            <strong>Email:</strong> <span th:text="*{owner.email}">Owner Email</span>
+                        </p>
+                        <div class="d-grid gap-2 mt-3">
+                            <button class="btn btn-success" onclick="toggleChat()" sec:authorize="isAuthenticated()">
+                                <i class="bi bi-chat-dots-fill"></i> Contact Owner
+                            </button>
+                            <a href="https://www.instamojo.com/" target="_blank" class="btn btn-primary" sec:authorize="hasAuthority('RENTER')">
+                                <i class="bi bi-credit-card-fill"></i> Pay Rent
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-auto pt-4" data-aos="fade-left" data-aos-delay="600">
+                    <a th:href="@{/}" class="btn btn-secondary">Back to Listings</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="chatContainer" class="card mt-4" data-aos="fade-up" style="display: none;">
+        <div class="card-header">
+            <h4>Live Chat About This Property</h4>
+        </div>
+        <div class="card-body">
+            <div class="connecting text-center p-3" sec:authorize="isAuthenticated()">
+                Connecting to chat...
+            </div>
+            <div class="text-center p-3" sec:authorize="!isAuthenticated()">
+                <a th:href="@{/login}">Login</a> to join the chat.
+            </div>
+            <ul id="messageArea" class="list-group list-group-flush" style="height: 300px; overflow-y: auto;"></ul>
+        </div>
+        <div class="card-footer" sec:authorize="isAuthenticated()">
+            <form id="messageForm" name="messageForm">
+                <div class="input-group">
+                    <input type="text" id="message" placeholder="Type a message..." autocomplete="off" class="form-control"/>
+                    <button type="submit" class="btn btn-primary">Send</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script th:src="@{/js/main.js}"></script>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header-links(pageTitle='Add Property - Rentopia')}"></head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container my-5">
+    <div class="card p-4 p-lg-5 form-card-animation">
+        <div class="row g-5">
+            <div class="col-lg-6">
+                <h2 class="card-title text-center mb-4">List a New Property</h2>
+                <form th:action="@{/add-property}" method="post" enctype="multipart/form-data">
+                    <div class="input-group mb-3" data-aos="fade-up">
+                        <span class="input-group-text"><i class="bi bi-fonts"></i></span>
+                        <input type="text" class="form-control form-control-with-icon" name="title" placeholder="Property Title" required>
+                    </div>
+
+                    <div class="input-group mb-3" data-aos="fade-up" data-aos-delay="100">
+                        <span class="input-group-text"><i class="bi bi-geo-alt-fill"></i></span>
+                        <input type="text" class="form-control form-control-with-icon" name="location" placeholder="Location" required>
+                    </div>
+
+                    <div class="input-group mb-3" data-aos="fade-up" data-aos-delay="200">
+                        <span class="input-group-text"><i class="bi bi-currency-rupee"></i></span>
+                        <input type="number" class="form-control form-control-with-icon" name="price" placeholder="Price per month" required>
+                    </div>
+
+                    <div class="input-group mb-3" data-aos="fade-up" data-aos-delay="300">
+                        <span class="input-group-text" style="align-items: self-start; padding-top: 10px;"><i class="bi bi-file-text-fill"></i></span>
+                        <textarea class="form-control form-control-with-icon" name="description" rows="3" placeholder="Property Description" required></textarea>
+                    </div>
+
+                    <div class="mb-4" data-aos="fade-up" data-aos-delay="400">
+                        <label for="imageFile" class="form-label">Property Image</label>
+                        <input type="file" class="form-control" id="imageFile" name="imageFile" accept="image/*" onchange="previewImage(event)" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100" data-aos="fade-up" data-aos-delay="500">List My Property</button>
+
+                    <div class="text-center mt-3" data-aos="fade-up" data-aos-delay="600">
+                        <a th:href="@{/}">or Cancel and go back</a>
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="col-lg-6 d-flex align-items-center justify-content-center bg-light rounded p-3" data-aos="fade-left" data-aos-delay="200">
+                <img id="imagePreview" src="#" alt="Image Preview" class="img-fluid rounded shadow-sm" style="display: none; max-height: 400px;">
+                <div id="previewText" class="text-muted text-center">
+                    <i class="bi bi-image" style="font-size: 3rem;"></i>
+                    <p>Your image preview will appear here</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>
