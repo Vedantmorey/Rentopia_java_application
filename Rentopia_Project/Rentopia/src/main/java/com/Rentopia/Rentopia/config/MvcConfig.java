@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
 
-    @Value("${file.upload-dir:uploads}") // default to "uploads"
+    @Value("${file.upload-dir:uploads}") 
     private String uploadDir;
 
     @Override
@@ -26,4 +26,5 @@ public class MvcConfig implements WebMvcConfigurer {
                 .addResourceLocations(resourcePath);
     }
 }
+
 
