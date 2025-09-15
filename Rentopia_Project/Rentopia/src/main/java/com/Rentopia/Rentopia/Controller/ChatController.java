@@ -22,8 +22,8 @@ public class ChatController {
     public ChatMessage addUser(@DestinationVariable String propertyId,
                                @Payload ChatMessage chatMessage,
                                SimpMessageHeaderAccessor headerAccessor) {
-        // Add username to the WebSocket session attributes
         headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
         return chatMessage;
     }
+
 }
